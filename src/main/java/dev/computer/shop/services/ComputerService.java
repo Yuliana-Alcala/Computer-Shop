@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import dev.computer.shop.dtos.ComputerDto;
 import dev.computer.shop.models.ComputerModel;
 import dev.computer.shop.repository.ComputerRepository;
+import jakarta.transaction.Transactional;
 
 @Service
 public class ComputerService {
@@ -23,14 +24,26 @@ public class ComputerService {
         return computerModel;
     }
 
-    public ComputerModel findByBrand(String brand) {
-        return computeRepository.findByBrand(brand)
-                .orElseThrow(() -> new RuntimeException("Brand not found"));
+    public List<ComputerModel> findByBrand(String brand) {
+        List<ComputerModel> computers = computeRepository.findByBrand(brand);
+        if (computers.isEmpty()) {
+            throw new RuntimeException("Brand not found");
+        }
+        return computers;
     }
     
 
     public List<ComputerModel> getAllComputers() {
         return computeRepository.findAll();
+    }
+
+    @Transactional
+    public void deleteComputersByBrand(String brand) {
+        List<ComputerModel> computers = computeRepository.findByBrand(brand);
+        if (computers.isEmpty()) {
+            throw new RuntimeException("Brand " + brand + " not found");
+        }
+        computeRepository.deleteAllByBrand(brand);
     }
 
 }

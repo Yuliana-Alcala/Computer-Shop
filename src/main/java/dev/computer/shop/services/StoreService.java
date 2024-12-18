@@ -9,6 +9,7 @@ import dev.computer.shop.dtos.StoreDto;
 import dev.computer.shop.models.ComputerModel;
 import dev.computer.shop.models.StoreModel;
 import dev.computer.shop.repository.StoreRepository;
+import jakarta.transaction.Transactional;
 
 @Service
 public class StoreService {
@@ -32,6 +33,15 @@ public class StoreService {
 
     public List<StoreModel> getAllStores() {
         return storeRepository.findAll();
+    }
+
+    @Transactional
+    public void deleteStore(Long id) {
+        if (!storeRepository.findById(id).isPresent()) {
+            throw new RuntimeException("Store not found");
+        }
+        
+        storeRepository.deleteById(id);
     }
 
 }

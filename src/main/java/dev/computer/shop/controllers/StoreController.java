@@ -5,7 +5,9 @@ package dev.computer.shop.controllers;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -60,5 +62,13 @@ public class StoreController {
         return storeService.getAllStores();
     }
 
-
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteStore(@PathVariable Long id) {
+        try {
+            storeService.deleteStore(id);
+            return ResponseEntity.ok("Store successfully removed.");
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(404).body(e.getMessage());
+        }
+    }
 }

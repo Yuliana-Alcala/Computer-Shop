@@ -1,9 +1,8 @@
 package dev.computer.shop.controllers;
 
 import java.util.List;
-import java.util.Optional;
-
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,7 +40,7 @@ public class ComputerController {
     @GetMapping("/{brand}")    
     public ResponseEntity<?> getComputerByBrand(@PathVariable String brand) {
         try {
-            ComputerModel computer = computerService.findByBrand(brand);
+            List<ComputerModel> computer = computerService.findByBrand(brand);
             return ResponseEntity.ok(computer);
         } catch (RuntimeException e) {
             return ResponseEntity.status(404).body(e.getMessage());
@@ -51,8 +50,16 @@ public class ComputerController {
     @GetMapping("")
     public List<ComputerModel> getAllComputers(){
         return computerService.getAllComputers();
-    }
-    
+    }  
 
+    @DeleteMapping("/{brand}")
+    public ResponseEntity<?> deleteComputersByBrand(@PathVariable String brand) {
+        try {
+            computerService.deleteComputersByBrand(brand);
+            return ResponseEntity.ok("Computers with brand '" + brand + "' successfully removed");
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(404).body(e.getMessage());
+        }
+    }
 
 }
