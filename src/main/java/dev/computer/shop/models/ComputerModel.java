@@ -33,19 +33,18 @@ public class ComputerModel {
     )
     private List<StoreModel> stores;
 
-    // Constructor que recibe todos los parámetros
+    
     public ComputerModel(BigDecimal price, StoreModel store, String brand, int amountOfMemory, String charactericsProcessor, String operatingSystem) {
         this.price = price;
         this.brand = brand;
         this.amountOfMemory = amountOfMemory;
         this.charactericsProcessor = charactericsProcessor;
         this.operatingSystem = operatingSystem;
-        this.stores = List.of(store); // Asociamos la tienda pasada al constructor
+        this.stores = List.of(store); 
     }
     public ComputerModel() {
     }
-    // Getters y Setters
-
+    
     public Long getComputerId() {
         return computerId;
     }

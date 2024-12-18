@@ -46,7 +46,6 @@ public class StoreModel {
     }
 
     
-
     public String getStoreName() {
         return storeName;
     }
