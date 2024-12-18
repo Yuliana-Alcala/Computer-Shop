@@ -5,7 +5,7 @@ import java.util.List;
 
 public record ComputerDto(
     BigDecimal price,
-    List<StoreDto> stores, // Incluimos la lista de StoreDto en lugar de solo storeId
+    List<StoreDto> stores, 
     String brand,
     int amountOfMemory,
     String charactericsProcessor,

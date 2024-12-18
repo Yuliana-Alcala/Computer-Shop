@@ -42,7 +42,8 @@ public class ComputerModel {
         this.operatingSystem = operatingSystem;
         this.stores = List.of(store); // Asociamos la tienda pasada al constructor
     }
-
+    public ComputerModel() {
+    }
     // Getters y Setters
 
     public Long getComputerId() {
