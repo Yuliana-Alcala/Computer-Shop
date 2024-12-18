@@ -13,29 +13,33 @@ public class StoreModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long storeId;
-    private String storName;
-    private String storeowner;
+    private String storeName;
+    private String storeOwner;
     
-
-
+    
+    public StoreModel() {
+          
+       
+        
+    }
     public StoreModel(StoreDto dto) {
           
-        this.storName = dto.storeName();
-        this.storeowner= dto.storeOwner();
+        this.storeName = dto.storeName();
+        this.storeOwner= dto.storeOwner();
         
     }
 
     public String getStorName() {
-        return storName;
+        return storeName;
     }
     public void setStorName(String storName) {
-        this.storName = storName;
+        this.storeName = storName;
     }
     public String getStoreowner() {
-        return storeowner;
+        return storeOwner;
     }
-    public void setStoreowner(String storeowner) {
-        this.storeowner = storeowner;
+    public void setStoreowner(String storeOwner) {
+        this.storeOwner = storeOwner;
     }
     public Long getStoreId() {
         return storeId;

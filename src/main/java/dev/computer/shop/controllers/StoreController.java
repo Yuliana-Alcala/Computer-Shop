@@ -2,6 +2,7 @@ package dev.computer.shop.controllers;
 
 
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
@@ -27,7 +28,7 @@ public class StoreController {
     
     private StoreService storeService;
 
-    public StoreController(StoreController storeService) {
+    public StoreController(StoreService storeService) {
         this.storeService = storeService;
     }
 
@@ -43,23 +44,21 @@ public class StoreController {
         return ResponseEntity.status(201).body(store);
     }
 
-    @GetMapping("/{id}")
-    
-    public ResponseEntity<StoreModel> getStoreId(@PathVariable String id){
+    @GetMapping("/{id}")    
+    public ResponseEntity<?> getStoreId(@PathVariable Long id){
+        try {
+            StoreModel store = storeService.findById(id);
+        return ResponseEntity.ok(store);
+        } catch (Exception e) {
+            return ResponseEntity.status(404).body(e.getMessage());
+        }
         
-        Optional<StoreModel> store = storeService.findById(id);
-        return ResponseEntity.status(201).body(store.get());
+   }
 
+    @GetMapping("")
+    public List<StoreModel> getAllStores(){
+        return storeService.getAllStores();
     }
-    
-
-
-
-
-    
-
-
-}
 
 
 }

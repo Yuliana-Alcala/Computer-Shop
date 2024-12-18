@@ -1,10 +1,12 @@
 package dev.computer.shop.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
 import dev.computer.shop.dtos.StoreDto;
+import dev.computer.shop.models.ComputerModel;
 import dev.computer.shop.models.StoreModel;
 import dev.computer.shop.repository.StoreRepository;
 
@@ -23,8 +25,13 @@ public class StoreService {
         return storeModel;
     }
 
-    public Optional<StoreModel> findById(String id) {
-        return storeRepository.findById(id);
+    public StoreModel findById(Long id) {
+        return storeRepository.findById(id)
+        .orElseThrow(() -> new RuntimeException("Store not found"));
+    }
+
+    public List<StoreModel> getAllStores() {
+        return storeRepository.findAll();
     }
 
 }

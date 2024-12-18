@@ -1,5 +1,6 @@
 package dev.computer.shop.controllers;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
@@ -37,19 +38,20 @@ public class ComputerController {
         return ResponseEntity.status(201).body(computer);
     }
 
-    @GetMapping("/{brand}")
-    
-    public ResponseEntity<ComputerModel> getComputerId(@PathVariable String brand){
-        
-        Optional<ComputerModel> patient = computerService.findByBrand(brand);
-        return ResponseEntity.status(201).body(patient.get());
-
+    @GetMapping("/{brand}")    
+    public ResponseEntity<?> getComputerByBrand(@PathVariable String brand) {
+        try {
+            ComputerModel computer = computerService.findByBrand(brand);
+            return ResponseEntity.ok(computer);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(404).body(e.getMessage());
+        }
     }
-    
 
-
-
-
+    @GetMapping("")
+    public List<ComputerModel> getAllComputers(){
+        return computerService.getAllComputers();
+    }
     
 
 

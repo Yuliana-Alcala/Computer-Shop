@@ -1,9 +1,9 @@
 package dev.computer.shop.services;
 
-import java.util.Optional;
+
+import java.util.List;
 
 import org.springframework.stereotype.Service;
-
 import dev.computer.shop.dtos.ComputerDto;
 import dev.computer.shop.models.ComputerModel;
 import dev.computer.shop.repository.ComputerRepository;
@@ -23,9 +23,14 @@ public class ComputerService {
         return computerModel;
     }
 
-    public Optional<ComputerModel> findByBrand(String brand) {
-        return computeRepository.findByBrand(brand);
+    public ComputerModel findByBrand(String brand) {
+        return computeRepository.findByBrand(brand)
+                .orElseThrow(() -> new RuntimeException("Brand not found"));
     }
     
+
+    public List<ComputerModel> getAllComputers() {
+        return computeRepository.findAll();
+    }
 
 }
