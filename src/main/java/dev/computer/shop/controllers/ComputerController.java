@@ -27,8 +27,8 @@ public class ComputerController {
 
     
     @PostMapping("")
-    public ResponseEntity<ComputerModel>  addPatient(@RequestBody ComputerDto entity){
-        ComputerModel computer =  computerService.save(entity);
+    public ResponseEntity<ComputerDto>  addComputer(@RequestBody ComputerDto computerDto){
+        ComputerDto computer =  computerService.save(computerDto);
         if (computer == null) {
             ResponseEntity.badRequest();
             
